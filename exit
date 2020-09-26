@@ -1,0 +1,176 @@
+[33mcommit 65315cae739abcf7e7fa128e9051aedd4bdceb8c[m[33m ([m[1;36mHEAD -> [m[1;32m2.0.x[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/2.0.x[m[33m)[m
+Author: Rudi <rudzwijaya90@gmail.com>
+Date:   Fri Sep 25 00:00:45 2020 +0700
+
+    Anet AM8 config
+
+[1mdiff --git a/Marlin/Configuration.h b/Marlin/Configuration.h[m
+[1mindex 8cd2faf7f..6f7a6f2be 100644[m
+[1m--- a/Marlin/Configuration.h[m
+[1m+++ b/Marlin/Configuration.h[m
+[36m@@ -21,6 +21,8 @@[m
+  */[m
+ #pragma once[m
+ [m
+[32m+[m[32m#define CONFIG_EXAMPLES_DIR "Anet/A8"[m
+[32m+[m
+ /**[m
+  * Configuration.h[m
+  *[m
+[36m@@ -71,7 +73,7 @@[m
+ // @section info[m
+ [m
+ // Author info of this build printed to the host during boot and M115[m
+[31m-#define STRING_CONFIG_H_AUTHOR "(none, default config)" // Who made the changes.[m
+[32m+[m[32m//#define STRING_CONFIG_H_AUTHOR "(Bob Kuhn, Anet config)" // Who made the changes.[m
+ //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)[m
+ [m
+ /**[m
+[36m@@ -86,7 +88,7 @@[m
+  */[m
+ [m
+ // Show the Marlin bootscreen on startup. ** ENABLE FOR PRODUCTION **[m
+[31m-#define SHOW_BOOTSCREEN[m
+[32m+[m[32m//#define SHOW_BOOTSCREEN[m
+ [m
+ // Show the bitmap in Marlin/_Bootscreen.h on startup.[m
+ //#define SHOW_CUSTOM_BOOTSCREEN[m
+[36m@@ -121,18 +123,18 @@[m
+  *[m
+  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000][m
+  */[m
+[31m-#define BAUDRATE 250000[m
+[32m+[m[32m#define BAUDRATE 115200[m
+ [m
+ // Enable the Bluetooth serial interface on AT90USB devices[m
+ //#define BLUETOOTH[m
+ [m
+ // Choose the name from boards.h that matches your setup[m
+ #ifndef MOTHERBOARD[m
+[31m-  #define MOTHERBOARD BOARD_RAMPS_14_EFB[m
+[32m+[m[32m  #define MOTHERBOARD BOARD_ANET_10[m
+ #endif[m
+ [m
+ // Name displayed in the LCD "Ready" message and Info menu[m
+[31m-//#define CUSTOM_MACHINE_NAME "3D Printer"[m
+[32m+[m[32m#define CUSTOM_MACHINE_NAME "Anet AM8"[m
+ [m
+ // Printer's unique ID, used by some programs to differentiate between machines.[m
+ // Choose your own or use a service like https://www.uuidgenerator.net/version4[m
+[36m@@ -145,6 +147,7 @@[m
+ #define EXTRUDERS 1[m
+ [m
+ // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.[m
+[32m+[m[32m// The Anet A8 original extruder is designed for 1.75mm[m
+ #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75[m
+ [m
+ // For Cyclops or any "multi-extruder" that shares a single nozzle.[m
+[36m@@ -177,7 +180,7 @@[m
+ #endif[m
+ [m
+ /**[m
+[31m- * Průša Multi-Material Unit v2[m
+[32m+[m[32m * Prusa Multi-Material Unit v2[m
+  *[m
+  * Requires NOZZLE_PARK_FEATURE to park print head in case MMU unit fails.[m
+  * Requires EXTRUDERS = 5[m
+[36m@@ -235,8 +238,8 @@[m
+ [m
+   #elif ENABLED(MAGNETIC_PARKING_EXTRUDER)[m
+ [m
+[31m-    #define MPE_FAST_SPEED      9000      // (mm/min) Speed for travel before last distance point[m
+[31m-    #define MPE_SLOW_SPEED      4500      // (mm/min) Speed for last distance travel to park and couple[m
+[32m+[m[32m    #define MPE_FAST_SPEED      9000      // (mm/m) Speed for travel before last distance point[m
+[32m+[m[32m    #define MPE_SLOW_SPEED      4500      // (mm/m) Speed for last distance travel to park and couple[m
+     #define MPE_TRAVEL_DISTANCE   10      // (mm) Last distance point[m
+     #define MPE_COMPENSATION       0      // Offset Compensation -1 , 0 , 1 (multiplier) only for coupling[m
+ [m
+[36m@@ -284,8 +287,8 @@[m
+     #if ENABLED(PRIME_BEFORE_REMOVE)[m
+       #define SWITCHING_TOOLHEAD_PRIME_MM           20  // (mm)   Extruder prime length[m
+       #define SWITCHING_TOOLHEAD_RETRACT_MM         10  // (mm)   Retract after priming length[m
+[31m-      #define SWITCHING_TOOLHEAD_PRIME_FEEDRATE    300  // (mm/min) Extruder prime feedrate[m
+[31m-      #define SWITCHING_TOOLHEAD_RETRACT_FEEDRATE 2400  // (mm/min) Extruder retract feedrate[m
+[32m+[m[32m      #define SWITCHING_TOOLHEAD_PRIME_FEEDRATE    300  // (mm/m) Extruder prime feedrate[m
+[32m+[m[32m      #define SWITCHING_TOOLHEAD_RETRACT_FEEDRATE 2400  // (mm/m) Extruder retract feedrate[m
+     #endif[m
+   #elif ENABLED(ELECTROMAGNETIC_SWITCHING_TOOLHEAD)[m
+     #define SWITCHING_TOOLHEAD_Z_HOP          2         // (mm) Z raise for switching[m
+[36m@@ -330,7 +333,7 @@[m
+ //#define PSU_NAME "Power Supply"[m
+ [m
+ #if ENABLED(PSU_CONTROL)[m
+[31m-  #define PSU_ACTIVE_STATE LOW      // Set 'LOW' for ATX, 'HIGH' for X-Box[m
+[32m+[m[32m  #define PSU_ACTIVE_HIGH false     // Set 'false' for ATX, 'true' for X-Box[m
+ [m
+   //#define PSU_DEFAULT_OFF         // Keep power off until enabled directly with M80[m
+   //#define PSU_POWERUP_DELAY 250   // (ms) Delay for the PSU to warm up to full power[m
+[36m@@ -373,7 +376,7 @@[m
+  *     4 : 10k thermistor !! do not use it for a hotend. It gives bad resolution at high temp. !![m
+  *     5 : 100K thermistor - ATC Semitec 104GT-2/104NT-4-R025H42G (Used in ParCan, J-Head, and E3D) (4.7k pullup)[m
+  *   501 : 100K Zonestar (Tronxy X3A) Thermistor[m
+[31m- *   502 : 100K Zonestar Thermistor used by hot bed in Zonestar Průša P802M[m
+[32m+[m[32m *   502 : 100K Zonestar Thermistor used by hot bed in Zonestar Prusa P802M[m
+  *   512 : 100k RPW-Ultra hotend thermistor (4.7k pullup)[m
+  *     6 : 100k EPCOS - Not as accurate as table 1 (created using a fluke thermocouple) (4.7k pullup)[m
+  *     7 : 100k Honeywell thermistor 135-104LAG-J01 (4.7k pullup)[m
+[36m@@ -416,7 +419,7 @@[m
+  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.[m
+  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.[m
+  */[m
+[31m-#define TEMP_SENSOR_0 1[m
+[32m+[m[32m#define TEMP_SENSOR_0 5[m
+ #define TEMP_SENSOR_1 0[m
+ #define TEMP_SENSOR_2 0[m
+ #define TEMP_SENSOR_3 0[m
+[36m@@ -424,7 +427,7 @@[m
+ #define TEMP_SENSOR_5 0[m
+ #define TEMP_SENSOR_6 0[m
+ #define TEMP_SENSOR_7 0[m
+[31m-#define TEMP_SENSOR_BED 0[m
+[32m+[m[32m#define TEMP_SENSOR_BED 5[m
+ #define TEMP_SENSOR_PROBE 0[m
+ #define TEMP_SENSOR_CHAMBER 0[m
+ [m
+[36m@@ -437,11 +440,11 @@[m
+ //#define TEMP_SENSOR_1_AS_REDUNDANT[m
+ #define MAX_REDUNDANT_TEMP_SENSOR_DIFF 10[m
+ [m
+[31m-#define TEMP_RESIDENCY_TIME     10  // (seconds) Time to wait for hotend to "settle" in M109[m
+[32m+[m[32m#define TEMP_RESIDENCY_TIME      6  // (seconds) Time to wait for hotend to "settle" in M109[m
+ #define TEMP_WINDOW              1  // (°C) Temperature proximity for the "temperature reached" timer[m
+ #define TEMP_HYSTERESIS          3  // (°C) Temperature proximity considered "close enough" to the target[m
+ [m
+[31m-#define TEMP_BED_RESIDENCY_TIME 10  // (seconds) Time to wait for bed to "settle" in M190[m
+[32m+[m[32m#define TEMP_BED_RESIDENCY_TIME  6  // (seconds) Time to wait for bed to "settle" in M190[m
+ #define TEMP_BED_WINDOW          1  // (°C) Temperature proximity for the "temperature reached" timer[m
+ #define TEMP_BED_HYSTERESIS      3  // (°C) Temperature proximity considered "close enough" to the target[m
+ [m
+[36m@@ -468,7 +471,7 @@[m
+ #define HEATER_5_MAXTEMP 275[m
+ #define HEATER_6_MAXTEMP 275[m
+ #define HEATER_7_MAXTEMP 275[m
+[31m-#define BED_MAXTEMP      150[m
+[32m+[m[32m#define BED_MAXTEMP      130[m
+ [m
+ //===========================================================================[m
+ //============================= PID Settings ================================[m
+[36m@@ -490,9 +493,9 @@[m
+   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it[m
+ [m
+   // Ultimaker[m
+[31m-  #define DEFAULT_Kp 22.2[m
+[31m-  #define DEFAULT_Ki 1.08[m
+[31m-  #define DEFAULT_Kd 114[m
+[32m+[m[32m  //#define DEFAULT_Kp 21.0[m
+[32m+[m[32m  //#define DEFAULT_Ki 1.25[m
+[32m+[m[32m  //#define DEFAULT_Kd 86.0[m
+ [m
+   // MakerGear[m
+   //#define DEFAULT_Kp 7.0[m
+[36m@@ -504,6 +507,12 @@[m
+   //#define DEFAULT_Ki 2.25[m
+   //#define DEFAULT_Kd 440[m
+ [m
+[32m+[m[32m  // ANET A8 Standard Extruder at 210 Degree Celsius and 100% Fan[m
+[32m+[m[32m  //(measure
