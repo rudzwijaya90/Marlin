@@ -1013,7 +1013,7 @@
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
 #define PROBING_MARGIN_LEFT 18
-#define PROBING_MARGIN_RIGHT 10
+#define PROBING_MARGIN_RIGHT 12
 #define PROBING_MARGIN_BACK 45
 #define PROBING_MARGIN_FRONT 0
 
@@ -2447,7 +2447,7 @@
 // (ms) Delay  before the next move will start, to give the servo time to reach its target angle.
 // 300ms is a good value but you can try less delay.
 // If the servo can't reach the requested position, increase it.
-#define SERVO_DELAY { 300 }
+// #define SERVO_DELAY { 300 }
 
 // Only power servos during movement, otherwise leave off to prevent jitter
 //#define DEACTIVATE_SERVOS_AFTER_MOVE
